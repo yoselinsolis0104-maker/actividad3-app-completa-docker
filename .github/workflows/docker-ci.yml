@@ -1,0 +1,37 @@
+name: Docker CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  docker-test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Verificar Docker
+        run: docker --version
+
+      - name: Construir servicios
+        run: docker compose up --build -d
+
+      - name: Esperar inicio
+        run: sleep 20
+
+      - name: Probar API
+        run: curl http://localhost:3000/api
+
+      - name: Mostrar contenedores
+        run: docker compose ps
+
+      - name: Mostrar logs
+        run: docker compose logs
+
+      - name: Apagar stack
+        run: docker compose down
