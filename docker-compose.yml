@@ -1,0 +1,35 @@
+services:
+
+  backend:
+    build: .
+    container_name: backend-node
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+    networks:
+      - red-app
+
+  frontend:
+    build: ./frontend
+    container_name: frontend-web
+    ports:
+      - "8080:80"
+    networks:
+      - red-app
+
+  mongo:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - red-app
+
+networks:
+  red-app:
+
+volumes:
+  mongo-data:

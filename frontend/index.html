@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Actividad 3</title>
+</head>
+<body>
+
+    <h1>Front-End</h1>
+
+    <button onclick="cargarDatos()">
+        Obtener datos del Back-End
+    </button>
+
+    <p id="resultado"></p>
+
+    <script>
+        async function cargarDatos() {
+
+            const respuesta =
+                await fetch('http://localhost:3000/api');
+
+            const datos =
+                await respuesta.json();
+
+            document.getElementById('resultado')
+                .innerText = datos.mensaje;
+        }
+    </script>
+
+</body>
+</html>
